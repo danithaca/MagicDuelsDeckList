@@ -1,0 +1,17 @@
+title: Magic Duels Deck List
+email: danithaca@gmail.com
+description: >
+  Export and share your Magic Duels decks.
+  Search other people's shared decks.
+baseurl: ""
+url: ""
+twitter_username: jekyllrb
+github_username:  jekyll
+
+markdown: kramdown
+theme: minima
+gems:
+  - jekyll-feed
+exclude:
+  - Gemfile
+  - Gemfile.lock
