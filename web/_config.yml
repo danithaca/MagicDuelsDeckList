@@ -5,8 +5,6 @@ description: >
   Search other people's shared decks.
 baseurl: ""
 url: ""
-twitter_username: jekyllrb
-github_username:  jekyll
 
 markdown: kramdown
 theme: minima
@@ -15,3 +13,7 @@ gems:
 exclude:
   - Gemfile
   - Gemfile.lock
+
+cognito:
+  pool_id: us-east-1_JShirMtZf
+  client_id: 1rf5rfb2ikffg4lhek8tm1jc29

@@ -1,0 +1,38 @@
+---
+layout: page
+title: User Profile
+---
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    var cognitoUser = getCognitoUser();
+    console.log(cognitoUser);
+
+    if (cognitoUser) {
+      cognitoUser.getSession(function(err, session) {
+        if (err) {
+          alert(err);
+          return;
+        }
+        console.log('session validity: ' + session.isValid());
+
+        cognitoUser.getUserAttributes(function(err, result) {
+          if (err) {
+            alert(err);
+            return;
+          }
+          for (i = 0; i < result.length; i++) {
+            console.log('attribute ' + result[i].getName() + ' has value ' + result[i].getValue());
+          }
+        });
+      });
+    } else {
+      console.log('Not logged in. Need to redirect to login.')
+    }
+  });
+</script>
+
+<div class="container">
+  <p>Something about the user</p>
+  <button id="logoutButton" class="btn btn-primary">Logout</button>
+</div>
