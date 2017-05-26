@@ -1,0 +1,27 @@
+<script type="text/javascript">
+  function getCognitoUserPool() {
+    return new AWSCognito.CognitoIdentityServiceProvider.CognitoUserPool({
+      UserPoolId: "{{ site.cognito.pool_id}}",
+      ClientId: "{{ site.cognito.client_id}}"
+    });
+  }
+
+  function getCognitoUser(username) {
+    var userPool = getCognitoUserPool();
+    if (username) {
+      return new AWSCognito.CognitoIdentityServiceProvider.CognitoUser({
+        Username: username,
+        Pool: userPool
+      });
+    } else {
+      return userPool.getCurrentUser();
+    }
+  }
+
+  $(document).ready(function() {
+    var currentUser = getCognitoUser();
+    if (currentUser) {
+      $('#navUser').attr('href', '{% link user/profile.html %}').find('span').text(currentUser.getUsername())
+    }
+  });
+</script>

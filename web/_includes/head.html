@@ -27,26 +27,7 @@
   <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 
-  <script type="text/javascript">
-    function getCognitoUserPool() {
-      return new AWSCognito.CognitoIdentityServiceProvider.CognitoUserPool({
-        UserPoolId : "{{ site.cognito.pool_id}}",
-        ClientId : "{{ site.cognito.client_id}}"
-      });
-    }
-
-    function getCognitoUser(username ) {
-      var userPool = getCognitoUserPool();
-      if (username) {
-        return new AWSCognito.CognitoIdentityServiceProvider.CognitoUser({
-          Username : username,
-          Pool : userPool
-        });
-      } else {
-        return userPool.getCurrentUser();
-      }
-    }
-  </script>
+  {% include main_js.html %}
 
   {% if page.extra_js_list %}
   {% for extra_js in page.extra_js_list %}

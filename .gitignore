@@ -1,5 +1,4 @@
 *.log
-examples/
 .vagrant/
 
 # Byte-compiled / optimized / DLL files

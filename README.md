@@ -15,4 +15,15 @@ Architecture
 ------------
 
 This project is to try out 1) AWS's serverless architecture, and 2) embeddings for cards/decks.
- 
+
+
+Components
+----------
+
+#### Static web ####
+
+Jekyll + AWS S3 static web hosting
+
+#### User management ####
+
+AWS Cognito: https://github.com/aws/amazon-cognito-identity-js

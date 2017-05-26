@@ -4,29 +4,11 @@ layout: default
 
 <script type="text/javascript">
   $(document).ready(function() {
-    var userPool = new AWSCognito.CognitoIdentityServiceProvider.CognitoUserPool({
-      UserPoolId : "{{ site.cognito.pool_id}}",
-      ClientId : "{{ site.cognito.client_id}}"
-    });
-
     $('#confirmationForm').submit(function(e) {
       e.preventDefault();
-      console.log('Triggered');
-
-      var cognitoUser = new AWSCognito.CognitoIdentityServiceProvider.CognitoUser({
-        Username : 'admin',
-        Pool : userPool
-      });
-
-//      cognitoUser.resendConfirmationCode(function(err, result) {
-//        if (err) {
-//          alert(err);
-//          return;
-//        }
-//        console.log('call result: ' + result);
-//      });
-
-      cognitoUser.confirmRegistration('607026', true, function(err, result) {
+      var user = getCognitoUser($('#username').val());
+      console.log(user);
+      user.confirmRegistration($('#confirmation').val(), true, function(err, result) {
         if (err) {
           console.log(err);
           alert(err);
@@ -48,8 +30,12 @@ layout: default
         <div class="panel-body">
           <form class="form" id="confirmationForm">
             <div class="form-group">
+              <label for="username">User name</label>
+              <input type="text" class="form-control" id="username" placeholder="User name">
+            </div>
+            <div class="form-group">
               <label for="confirmation">Confirmation code</label>
-              <input type="text" class="form-control" id="confirmation" placeholder="Input confirmation code here.">
+              <input type="text" class="form-control" id="confirmation" placeholder="Confirmation code">
             </div>
             <div class="form-group">
               <button class="btn btn-primary" type="submit">Confirm</button>

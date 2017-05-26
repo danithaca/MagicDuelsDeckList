@@ -8,23 +8,23 @@ layout: default
       e.preventDefault();
       var username = $('#username').val();
       var password = $('#password').val();
-      var authenticationDetails = new AWSCognito.CognitoIdentityServiceProvider.AuthenticationDetails({
-        Username : username,
-        Password : password
-      });
       var cognitoUser = getCognitoUser(username);
 
-      cognitoUser.authenticateUser(authenticationDetails, {
-        onSuccess: function (result) {
-          console.log('access token + ' + result.getAccessToken().getJwtToken());
-          console.log(result);
-        },
-
-        onFailure: function(err) {
-          alert(err);
+      cognitoUser.authenticateUser(
+        new AWSCognito.CognitoIdentityServiceProvider.AuthenticationDetails({
+          Username : username,
+          Password : password
+        }),
+        {
+          onSuccess: function (result) {
+            console.log('access token + ' + result.getAccessToken().getJwtToken());
+            console.log(result);
+          },
+          onFailure: function(err) {
+            alert(err);
+          }
         }
-
-      });
+      );
     });
   });
 </script>
@@ -47,7 +47,8 @@ layout: default
               <input type="password" class="form-control" id="password" placeholder="Password">
             </div>
             <div class="form-group">
-              <button class="btn btn-primary" type="submit">Login</button>
+              <button class="btn btn-primary" type="submit">Login</button> |
+              <a href="{% link user/register.html %}">Register</a>
             </div>
           </form>
         </div>

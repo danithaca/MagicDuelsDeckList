@@ -5,18 +5,18 @@ title: User Profile
 
 <script type="text/javascript">
   $(document).ready(function() {
-    var cognitoUser = getCognitoUser();
-    console.log(cognitoUser);
+    var currentUser = getCognitoUser();
+    console.log(currentUser);
 
-    if (cognitoUser) {
-      cognitoUser.getSession(function(err, session) {
+    if (currentUser) {
+      currentUser.getSession(function(err, session) {
         if (err) {
           alert(err);
           return;
         }
         console.log('session validity: ' + session.isValid());
 
-        cognitoUser.getUserAttributes(function(err, result) {
+        currentUser.getUserAttributes(function(err, result) {
           if (err) {
             alert(err);
             return;
@@ -29,6 +29,11 @@ title: User Profile
     } else {
       console.log('Not logged in. Need to redirect to login.')
     }
+
+    $('#logoutButton').click(function() {
+      getCognitoUser().signOut();
+      window.location.href = '/';
+    });
   });
 </script>
 
