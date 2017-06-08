@@ -10,9 +10,12 @@ markdown: kramdown
 theme: minima
 gems:
   - jekyll-feed
+
 exclude:
   - Gemfile
   - Gemfile.lock
+  - README.md
+  - Vagrantfile
 
 cognito:
   pool_id: us-east-1_JShirMtZf
