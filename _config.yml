@@ -20,3 +20,6 @@ exclude:
 cognito:
   pool_id: us-east-1_JShirMtZf
   client_id: 1rf5rfb2ikffg4lhek8tm1jc29
+
+api:
+  endpoint: https://kipddjwxgk.execute-api.us-east-1.amazonaws.com/prod

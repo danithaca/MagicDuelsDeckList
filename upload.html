@@ -2,10 +2,87 @@
 layout: default
 ---
 
-<div id="deck-list" class="col-md-6">
-  TBA
+<script type="text/javascript">
+  var app;
+  $(document).ready(function() {
+    app = new Vue({
+      el: '#app',
+      data: {
+        message: 'Hello Vue!'
+      }
+    });
+
+    var app4 = new Vue({
+      el: '#app-4',
+      data: {
+        todos: [
+          { text: 'Learn JavaScript' },
+          { text: 'Learn Vue' },
+          { text: 'Build something awesome' }
+        ]
+      }
+    });
+
+    var deck_list = new Vue({
+      el: '#deck-list',
+      data: {
+        decks: []
+      },
+      created: function() {
+        var deck_list_vue = this;
+        var deck_list_url = "{{ site.api.endpoint }}" + "/decks/" + encodeURIComponent(getCognitoUser().getUsername());
+        console.log(deck_list_url);
+        // load decks data
+        $.ajax(deck_list_url, {
+          crossDomain: true,
+          success: function (data) {
+            console.log(data);
+            $.each(data, function(index, value) {
+              console.log(value);
+              value.url = '/';
+            });
+            deck_list_vue.decks = data;
+          }
+        });
+      }
+    });
+  });
+</script>
+
+<div class="col-md-8">
+  <div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">
+      <h4>My Private Decks</h4>
+    </div>
+    <div class="panel-body">
+      <p>...</p>
+    </div>
+
+    {% raw %}
+    <ul id="deck-list" class="list-group">
+      <li v-for="deck in decks" class="list-group-item">
+        <a href="{{ deck.deck_name }}">
+          {{ deck.deck_name }}
+        </a>
+      </li>
+    </ul>
+    {% endraw %}
+  </div>
 </div>
 
-<div id="upload-control" class="col-md-6">
-  TBA
+<div id="upload-control" class="col-md-4">
+  {% raw %}
+  <div id="app">
+    {{ message }}
+  </div>
+
+  <div id="app-4">
+    <ol>
+      <li v-for="todo in todos">
+        {{ todo.text }}
+      </li>
+    </ol>
+  </div>
+  {% endraw %}
 </div>
